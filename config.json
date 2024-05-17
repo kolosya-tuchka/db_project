@@ -2,5 +2,6 @@
     "host": "localhost",
     "user": "root",
     "password": "12345678",
-    "database": "mysql"
+    "database": "military",
+    "secret_key": "qwerty1234Aboba"
 }
