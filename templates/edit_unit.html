@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать часть</title>
+</head>
+<body>
+    <h1>Редактировать часть</h1>
+    <form method="POST">
+        <label>Название:</label>
+        <input type="text" name="name" value="{{ unit[0] }}" required><br>
+        <label>Командир:</label>
+        <select name="commander_id">
+            {% for officer in officers %}
+            <option value="{{ officer[0] }}" {% if officer[0] == unit[1] %}selected{% endif %}>{{ officer[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Дивизия:</label>
+        <select name="division_id">
+            {% for division in divisions %}
+            <option value="{{ division[0] }}" {% if division[0] == unit[2] %}selected{% endif %}>{{ division[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Сохранить</button>
+    </form>
+    <a href="{{ url_for('view_units') }}">Назад</a>
+</body>
+</html>

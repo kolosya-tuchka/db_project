@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить офицера</title>
+</head>
+<body>
+    <h1>Добавить офицера</h1>
+    <form method="post">
+        <label>Имя:</label><br>
+        <input type="text" name="name" required><br>
+        <label>Ранг:</label><br>
+        <select name="rank_id">
+            {% for rank in ranks %}
+            <option value="{{ rank[0] }}">{{ rank[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <label>Пользователь:</label><br>
+        <select name="user_id">
+            {% for user in users %}
+            <option value="{{ user[0] }}">{{ user[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Добавить</button>
+    </form>
+    <a href="/admin_dashboard">Главная</a>
+</body>
+</html>

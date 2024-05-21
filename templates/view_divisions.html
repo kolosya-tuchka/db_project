@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Дивизии</title>
+</head>
+<body>
+    <h1>Дивизии</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Название дивизии</th>
+                <th>Название армии</th>
+                <th>Командир дивизии</th>
+                <th>Местоположение</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for division in divisions %}
+            <tr>
+                <td>{{ division[0] }}</td>
+                <td>{{ division[1] }}</td>
+                <td><a href="edit_army/{{division[2]}}">{{ division[2] }}</a></td>
+                <td><a href="edit_officer/{{division[3]}}">{{ division[3] }}</a></td>
+                <td>{{ division[4] }}</td>
+                <td>
+                    <a href="edit_division/{{division[0]}}">Редактировать</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}">Назад</a>
+</body>
+</html>

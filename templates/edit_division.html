@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование дивизии</title>
+</head>
+<body>
+    <h1>Редактирование дивизии</h1>
+    <form method="post">
+        <label for="name">Название:</label><br>
+        <input type="text" id="name" name="name" value="{{ division.Name }}"><br>
+        <label>Командир:</label>
+        <select name="commander">
+            {% for officer in officers %}
+            <option value="{{ officer[0] }}" {% if officer[0] == division[1] %}selected{% endif %}>{{ officer[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="location">Местоположение:</label><br>
+        <select id="location" name="location">
+            {% for location in locations %}
+                <option value="{{ location[0] }}" {% if location[0] == division.LocationID %} selected {% endif %}>{{ location[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <input type="submit" value="Сохранить">
+    </form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о дивизии</title>
+</head>
+<body>
+    <h1>Дивизия: {{ division_name }}</h1>
+    <p>Командир: {{ commander_name }}</p>
+    <p>Армия: {{ army_name }}</p>
+    <p>Местоположение: {{ location_name }}</p>
+    <p>Количество солдат: {{ soldier_count }}</p>
+    <p>Общее количество вооружения: {{ total_weaponry }}</p>
+    <h2>Части:</h2>
+    <ul>
+        {% for unit in units %}
+        <li>{{ unit[1] }} - <a href="/view_unit/{{unit[0]}}">Посмотреть</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('officer_page') }}">Назад</a>
+</body>
+</html>

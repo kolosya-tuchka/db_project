@@ -1,0 +1,23 @@
+<!-- templates/add_speciality_request.html -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Запрос на добавление специальности</title>
+</head>
+<body>
+    <h1>Запрос на добавление новой специальности</h1>
+    <form action="{{ url_for('add_speciality_request') }}" method="post">
+        <label for="speciality_id">Выберите специальность:</label>
+        <select id="speciality_id" name="speciality_id" required>
+            {% for speciality in specialties %}
+            <option value="{{ speciality[0] }}">{{ speciality[1] }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Отправить запрос">
+    </form>
+    <a href="{{ url_for(session['user_type'] + '_page') }}">Назад</a>
+</body>
+</html>

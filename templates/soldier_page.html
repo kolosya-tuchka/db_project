@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница солдата</title>
+</head>
+<body>
+    <h1>Добро пожаловать, {{ soldier_name }}</h1>
+    <p>Звание: {{ rank_name }}</p>
+    <p>Часть: {{ unit_name }}</p>
+    <p>Командир: {{ commander_name }}</p>
+    <h2>Специальности:</h2>
+    <ul>
+        {% for specialty in specialties %}
+        <li>{{ specialty }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('add_speciality_request') }}">Запросить новую специальность</a><br>
+    <a href="{{ url_for('request_history') }}">История запросов</a><br>
+    <a href="{{ url_for('change_password') }}">Сменить пароль</a><br>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+</body>
+</html>

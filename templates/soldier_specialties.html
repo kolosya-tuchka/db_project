@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Специальности солдата</title>
+</head>
+<body>
+    <h1>Специальности солдата: {{ soldier_name }}</h1>
+    <p>Звание: {{ rank_name }}</p>
+    <p>Часть: {{ unit_name }}</p>
+    <p>Командир: {{ commander_name }}</p>
+    <h2>Специальности:</h2>
+    <ul>
+        {% for specialty in specialties %}
+        <li>{{ specialty[0] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('officer_page') }}">Назад</a>
+</body>
+</html>

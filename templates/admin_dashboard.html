@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+</head>
+<body>
+    <h1>Админ-панель</h1>
+    <ul>
+        <li><a href="{{ url_for('view_soldiers') }}">Просмотр солдат</a></li>
+        <li><a href="{{ url_for('view_officers') }}">Просмотр офицеров</a></li>
+        <li><a href="{{ url_for('view_users') }}">Просмотр пользователей</a></li>
+        <li><a href="{{ url_for('add_soldier') }}">Добавить солдата</a></li>
+        <li><a href="{{ url_for('add_officer') }}">Добавить офицера</a></li>
+        <li><a href="{{ url_for('add_user') }}">Добавить пользователя</a></li>
+        <li><a href="{{ url_for('view_units') }}">Просмотр частей</a></li>
+        <li><a href="{{ url_for('view_divisions') }}">Просмотр дивизий</a></li>
+        <li><a href="{{ url_for('view_armies') }}">Просмотр армий</a></li>
+        <li><a href="{{ url_for('admin_requests') }}">Просмотр запросов</a></li>
+    </ul>
+    <a href="{{ url_for('change_password') }}">Сменить пароль</a><br>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+</body>
+</html>

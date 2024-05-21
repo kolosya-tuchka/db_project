@@ -1,10 +1,14 @@
+USE mysql;
+DROP DATABASE IF EXISTS military;
+
 CREATE DATABASE IF NOT EXISTS military;
 
 USE military;
 
 CREATE TABLE `Rank` (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(255)
+    Name VARCHAR(255),
+    RankType Enum('soldier', 'officer') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Officer (
@@ -96,4 +100,15 @@ CREATE TABLE IF NOT EXISTS OfficerSpecialties (
     PRIMARY KEY (OfficerID, SpecialityID),
     FOREIGN KEY (OfficerID) REFERENCES Officer(ID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (SpecialityID) REFERENCES MilitarySpecialties(ID) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE Request (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT NOT NULL,
+    UserType ENUM('soldier', 'officer') NOT NULL,
+    RequestType ENUM('add_speciality', 'add_soldier', 'promote_to_officer', 'add_weaponry') NOT NULL,
+    RequestDetails JSON NOT NULL,
+    Status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES User(ID)
 );
