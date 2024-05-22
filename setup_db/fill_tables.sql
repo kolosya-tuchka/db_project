@@ -85,11 +85,11 @@ INSERT INTO Division (Name, CommanderID, ArmyID, LocationID) VALUES
 ('Вторая дивизия', 3, 1, 2);
 
 -- Заполнение таблицы Части
-INSERT INTO Unit (Name, CommanderID) VALUES
-('1-я часть', 4),
-('2-я часть', 5),
-('3-я часть', 6),
-('4-я часть', 7);
+INSERT INTO Unit (Name, CommanderID, DivisionID) VALUES
+('1-я часть', 4, 1),
+('2-я часть', 5, 2),
+('3-я часть', 6, 1),
+('4-я часть', 7, 2);
 
 INSERT INTO WeaponryInUnit (UnitID, WeaponryID, Quantity) VALUES
 (1, 1, 20),

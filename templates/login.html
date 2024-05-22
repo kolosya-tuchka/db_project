@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta charset="UTF-8">
     <title>Авторизация</title>
 </head>
 <body>
+    <div class="form-container">
+    <h1>Сайт первой армии</h1>
     <form action="/login" method="post">
         <label for="username">Имя пользователя:</label>
         <input type="text" id="username" name="username" required><br>
@@ -18,5 +21,6 @@
         </select><br>
         <button type="submit">Войти</button>
     </form>
+    </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta charset="UTF-8">
     <title>Запросы пользователей</title>
 </head>
@@ -23,7 +24,7 @@
             <td>{{ request[3] }}</td>
             <td>{{ request[4] }}</td>
             <td>
-                <form action="{{ url_for('admin_requests') }}" method="post">
+                <form class="admin_requests_form" action="{{ url_for('admin_requests') }}" method="post">
                     <input type="hidden" name="request_id" value="{{ request[0] }}">
                     <button type="submit" name="action" value="approve">Одобрить</button>
                     <button type="submit" name="action" value="reject">Отклонить</button>

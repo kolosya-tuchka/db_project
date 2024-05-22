@@ -16,7 +16,7 @@ connection = mysql.connector.connect(
     host=config['host'],
     user=config['user'],
     password=config['password'],
-    database=config['database']
+    database=config['database'],
 )
 
 # Создание объекта курсора
@@ -41,6 +41,7 @@ def load_migrations():
 def setup_database():
     sql_script = load_sql_script('setup_db/create_db.sql')
     sql_script += load_sql_script('setup_db/add_users.sql')
+    sql_script += load_sql_script('setup_db/add_requests.sql')
     sql_script += load_sql_script('setup_db/fill_tables.sql')
     sql_script += load_migrations()
     sql_script += load_sql_script('setup_db/triggers.sql')
@@ -105,6 +106,12 @@ def change_password():
 
     return render_template('change_password.html')
 
+
+@app.route('/admin_page')
+def admin_page():
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+    return redirect(url_for('admin_dashboard'))
 
 @app.route('/soldier_page')
 def soldier_page():
@@ -412,6 +419,8 @@ def add_speciality_request():
 
 @app.route('/add_soldier_request', methods=['GET', 'POST'])
 def add_soldier_request():
+    if 'user_id' not in session or session['user_type'] != 'officer':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         soldier_name = request.form['soldier_name']
         soldier_rank_id = request.form['soldier_rank']  # Получаем id ранга
@@ -429,6 +438,70 @@ def add_soldier_request():
     soldier_ranks = cursor.fetchall()  # Получаем список кортежей (id, name) рангов
 
     return render_template('add_soldier_request.html', soldier_ranks=soldier_ranks)
+
+
+@app.route('/add_weaponry_request', methods=['GET', 'POST'])
+def add_weaponry_request():
+    if 'user_id' not in session or session['user_type'] != 'officer':
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        user_id = session['user_id']
+        user_type = session['user_type']
+        weapon_type = request.form['weapon_type']
+        quantity = request.form['quantity']
+        unit_id = request.form['unit']
+
+        request_details = json.dumps({
+            'weapon_type': weapon_type,
+            'quantity': quantity,
+            'unit_id': unit_id
+        })
+
+        cursor.execute("INSERT INTO Request (UserID, UserType, RequestType, RequestDetails) VALUES (%s, %s, 'add_weaponry', %s)",
+                       (user_id, user_type, request_details))
+        connection.commit()
+        return redirect(url_for('officer_page'))
+
+    cursor.execute("SELECT ID, Model FROM Weaponry")
+    weapons = cursor.fetchall()
+
+    # Определение частей, подчиненных офицеру
+    user_id = session['user_id']
+    cursor.callproc('GetOfficerUnits', (user_id,))
+    for result in cursor.stored_results():
+        units = result.fetchall()
+    return render_template('add_weaponry_request.html', weapons=weapons, units=units)
+
+
+@app.route('/promote_soldier_request', methods=['GET', 'POST'])
+def promote_soldier_request():
+    if 'user_id' not in session or session['user_type'] != 'soldier':
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        rank_id = request.form['rank_id']
+        user_id = session['user_id']
+
+        # Проверка существования запроса
+        cursor.execute(
+            "SELECT COUNT(*) FROM Request WHERE UserID = %s AND RequestType = 'promote_soldier' AND Status = 'pending'",
+            (user_id,))
+        if cursor.fetchone()[0] > 0:
+            flash('У Вас уже есть запрос на повышение. Дождитесь его запроса.', 'warning')
+            return redirect(url_for('promote_soldier_request'))
+
+        # Создание запроса
+        request_details = json.dumps({'new_rank_id': rank_id})
+        cursor.execute(
+            "INSERT INTO Request (UserID, UserType, RequestType, RequestDetails) VALUES (%s, 'soldier', 'promote_to_officer', %s)",
+            (user_id, request_details))
+        connection.commit()
+        flash('Запрос на повышение отправлен успешно.', 'success')
+        return redirect(url_for('soldier_page'))
+
+    # Получение доступных рангов для офицера
+    cursor.execute("SELECT ID, Name FROM `Rank` WHERE RankType = 'officer'")
+    ranks = cursor.fetchall()
+    return render_template('promote_request.html', ranks=ranks)
 
 
 @app.route('/admin_requests', methods=['GET', 'POST'])
@@ -467,6 +540,22 @@ def admin_requests():
                     "INSERT INTO Soldier (Name, RankID) VALUES (%s, %s)",
                     (name, rank_id)
                 )
+            elif request_type == 'add_weaponry':
+                unit_id = request_details['unit_id']
+                quantity = request_details['quantity']
+                weapon_type = request_details['weapon_type']
+                cursor.execute("SELECT Quantity FROM WeaponryInUnit WHERE UnitID = %s AND WeaponryID = %s",
+                               (unit_id, weapon_type))
+                result = cursor.fetchone()
+                if result:
+                    cursor.execute("UPDATE WeaponryInUnit SET Quantity = Quantity + %s WHERE UnitID = %s AND WeaponryID = %s",
+                                   (quantity, unit_id, weapon_type))
+                else:
+                    cursor.execute("INSERT INTO WeaponryInUnit (UnitID, WeaponryID, Quantity) VALUES (%s, %s, %s)",
+                               (unit_id, weapon_type, quantity,))
+            elif request_type == 'promote_to_officer':
+                new_rank_id = request_details['new_rank_id']
+                cursor.callproc('PromoteSoldierToOfficer', (user_id, new_rank_id))
             connection.commit()
             cursor.execute("UPDATE Request SET Status = 'approved' WHERE ID = %s", (request_id,))
         elif action == 'reject':

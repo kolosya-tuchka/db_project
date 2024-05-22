@@ -1,0 +1,32 @@
+<!-- templates/add_weaponry_request.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Запрос на добавление вооружения</title>
+</head>
+<body>
+    <h1>Запрос на добавление нового вооружения</h1>
+    <form action="{{ url_for('add_weaponry_request') }}" method="post">
+        <label for="weapon_type">Тип вооружения:</label>
+        <select name="weapon_type" id="weapon_type">
+            {% for weapon in weapons %}
+                <option value="{{ weapon[0] }}">{{ weapon[1] }}</option>
+            {% endfor %}
+        </select><br>
+
+        <label for="quantity">Количество:</label>
+        <input type="number" name="quantity" id="quantity" required><br>
+
+        <label for="unit">Часть:</label>
+        <select name="unit" id="unit">
+            {% for unit in units %}
+                <option value="{{ unit[0] }}">{{ unit[1] }}</option>
+            {% endfor %}
+        </select><br>
+
+        <button type="submit">Отправить запрос</button>
+    </form>
+</body>
+</html>
