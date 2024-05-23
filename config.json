@@ -3,5 +3,7 @@
     "user": "root",
     "password": "12345678",
     "database": "military",
-    "secret_key": "qwerty1234Aboba"
+    "secret_key": "qwerty1234Aboba",
+    "app_host": "185.196.117.180",
+    "app_port": 5002
 }

@@ -33,17 +33,17 @@ INSERT INTO User (Username, Password, UserType) VALUES
 
 
 -- Заполнение таблицы Звания
-INSERT INTO `Rank` (Name) VALUES
-('Майор'),
-('Капитан'),
-('Подполковник'),
-('Полковник'),
-('Рядовой'),
-('Ефрейтор'),
-('Сержант'),
-('Младший сержант'),
-('Старший сержант'),
-('Старшина');
+INSERT INTO `Rank` (Name, RankType) VALUES
+('Майор', 'officer'),
+('Капитан', 'officer'),
+('Подполковник', 'officer'),
+('Полковник', 'officer'),
+('Рядовой', 'soldier'),
+('Ефрейтор', 'soldier'),
+('Сержант', 'soldier'),
+('Младший сержант', 'soldier'),
+('Старший сержант', 'soldier'),
+('Старшина', 'soldier');
 
 -- Заполнение таблицы Офицеры
 INSERT INTO Officer (Name, RankID, Date_of_Commission, UserID) VALUES
@@ -73,11 +73,11 @@ INSERT INTO Army (Name, CommanderID) VALUES ('Первая армия', 1);
 
 -- Заполнение таблицы Локации
 INSERT INTO Location (Name) VALUES
-('База 1'),
-('База 2'),
-('Полигон 1'),
-('Полигон 2'),
-('Тренировочное поле');
+('Новосибирск'),
+('Москва'),
+('Махачкала'),
+('Санкт-Петербург'),
+('Владивосток');
 
 -- Заполнение таблицы Дивизия
 INSERT INTO Division (Name, CommanderID, ArmyID, LocationID) VALUES

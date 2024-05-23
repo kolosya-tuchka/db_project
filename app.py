@@ -47,7 +47,7 @@ def setup_database():
     sql_script += load_sql_script('setup_db/triggers.sql')
     sql_script += load_sql_script('setup_db/procedures.sql')
     sql_script += 'COMMIT();'
-    cursor.execute(sql_script)
+    cursor.execute(sql_script, multi=True)
 
 
 @app.route('/')
@@ -597,7 +597,7 @@ def request_history():
     user_id = session['user_id']
     user_type = session['user_type']
 
-    cursor.execute("SELECT * FROM Request WHERE UserID = %s AND UserType = %s ORDER BY CreatedAt DESC", (user_id, user_type))
+    cursor.execute("SELECT * FROM Request WHERE UserID = %s ORDER BY CreatedAt DESC", (user_id,))
     requests = cursor.fetchall()
 
     return render_template('request_history.html', requests=requests)
@@ -754,6 +754,8 @@ def edit_army(army_id):
 
 @app.route('/soldiers')
 def view_soldiers():
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     cursor.callproc('GetSoldiers')
     for result in cursor.stored_results():
         soldiers = result.fetchall()
@@ -762,6 +764,8 @@ def view_soldiers():
 
 @app.route('/officers')
 def view_officers():
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     cursor.callproc('GetOfficers')
     for result in cursor.stored_results():
         officers = result.fetchall()
@@ -779,6 +783,8 @@ def view_users():
 
 @app.route('/add_soldier', methods=['GET', 'POST'])
 def add_soldier():
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         name = request.form['name']
         rank_id = request.form['rank_id']
@@ -800,6 +806,8 @@ def add_soldier():
 
 @app.route('/add_officer', methods=['GET', 'POST'])
 def add_officer():
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         name = request.form['name']
         rank_id = request.form['rank_id']
@@ -832,6 +840,8 @@ def add_user():
 
 @app.route('/edit_soldier/<int:id>', methods=['GET', 'POST'])
 def edit_soldier(id):
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         name = request.form['name']
         rank_id = request.form['rank_id']
@@ -855,6 +865,8 @@ def edit_soldier(id):
 
 @app.route('/edit_officer/<int:id>', methods=['GET', 'POST'])
 def edit_officer(id):
+    if 'username' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
     if request.method == 'POST':
         name = request.form['name']
         rank_id = request.form['rank_id']
@@ -921,4 +933,4 @@ def delete_user(user_id):
 
 
 if __name__ == '__main__':
-    app.run(host='185.196.117.180', port=5002)
+    app.run(host=config['app_host'], port=config['app_port'])
