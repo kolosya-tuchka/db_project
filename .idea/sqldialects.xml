@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/create_db.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/fill_tables.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/migrations/migration_0001.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/procedures_and_functions.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/triggers.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/add_users.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/create_db.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/fill_tables.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/migrations/migration_0001.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/migrations/migration_0002.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/procedures.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/setup_db/triggers.sql" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>
 </project>

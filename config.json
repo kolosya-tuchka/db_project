@@ -2,5 +2,8 @@
     "host": "localhost",
     "user": "root",
     "password": "12345678",
-    "database": "mysql"
+    "database": "military",
+    "secret_key": "qwerty1234Aboba",
+    "app_host": "185.196.117.180",
+    "app_port": 5002
 }

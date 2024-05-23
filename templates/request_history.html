@@ -1,0 +1,30 @@
+<!-- templates/request_history.html -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>История запросов</title>
+</head>
+<body>
+    <h1>История ваших запросов</h1>
+    <table>
+        <tr>
+            <th>Тип запроса</th>
+            <th>Детали запроса</th>
+            <th>Статус</th>
+            <th>Дата создания</th>
+        </tr>
+        {% for request in requests %}
+        <tr>
+            <td>{{ request[3] }}</td>
+            <td>{{ request[4] }}</td>
+            <td>{{ request[5] }}</td>
+            <td>{{ request[6] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for(session['user_type'] + '_page') }}">Назад</a>
+</body>
+</html>

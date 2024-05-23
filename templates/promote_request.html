@@ -1,0 +1,22 @@
+<!-- templates/promote_request.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Запрос на повышение</title>
+</head>
+<body>
+    <h1>Запрос на повышение до офицера</h1>
+    <form action="{{ url_for('promote_soldier_request') }}" method="post">
+        <label for="rank">Выберите новое звание:</label>
+        <select name="rank_id" id="rank" required>
+            {% for rank in ranks %}
+                <option value="{{ rank[0] }}">{{ rank[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Отправить</button>
+    </form>
+    <a href="{{ url_for(session['user_type'] + '_page') }}">Назад</a>
+</body>
+</html>

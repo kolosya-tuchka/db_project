@@ -1,0 +1,107 @@
+body {
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    background-image: url('../images/background.jpg');
+    color: #ffffff;
+}
+
+.form-container {
+    margin: 0 10% 0 30%; /* Автоматическое выравнивание по горизонтали */
+    text-align: left; /* Центрирование текста внутри контейнера */
+}
+
+.form-container h1, h2 {
+    margin-bottom: 20px; /* Отступ между заголовком и формой */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+}
+
+p {
+    color: #bfbfbf;
+}
+
+/* Стили для ссылок */
+a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #8bc34a;
+}
+
+/* Стили для кнопок */
+button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #8bc34a;
+}
+
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #4caf50;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+}
+
+/* Стили для списков */
+ul, ol {
+    margin: 20px 0;
+    padding-left: 40px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Стили для формы */
+form {
+    border: 10px solid #4caf50;
+    padding: 20px;
+    width: 50%;
+    background-color: #393939;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form input, form select {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #4caf50;
+    border-radius: 4px;
+    background-color: #393939;
+    color: #ffffff;
+}
+
+form label {
+    color: #bfbfbf;
+}
+
+.admin_requests_form {
+    border: none;
+    background: none;
+}

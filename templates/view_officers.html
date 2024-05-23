@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Офицеры</title>
+</head>
+<body>
+    <h1>Офицеры</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Ранг</th>
+            <th>Пользователь</th>
+            <th>Действия</th>
+        </tr>
+        {% for officer in officers %}
+        <tr>
+            <td>{{ officer[0] }}</td>
+            <td>{{ officer[1] }}</td>
+            <td>{{ officer[2] }}</td>
+            <td>{{ officer[3] }}</td>
+            <td>
+                <a href="/edit_officer/{{ officer[0] }}">Редактировать</a>
+                <a href="/delete_officer/{{ officer[0] }}">Удалить</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/admin_dashboard">Главная</a>
+</body>
+</html>

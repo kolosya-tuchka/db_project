@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Армии</title>
+</head>
+<body>
+    <h1>Армии</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Название армии</th>
+                <th>Командир армии</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for army in armies %}
+            <tr>
+                <td>{{ army[0] }}</td>
+                <td>{{ army[1] }}</td>
+                <td>{{ army[2] }}</td>
+                <td>
+                    <a href="edit_army/{{army[0]}}">Редактировать</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}">Назад</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!-- templates/admin_requests.html -->
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Запросы пользователей</title>
+</head>
+<body>
+    <h1>Запросы пользователей</h1>
+    <table>
+        <tr>
+            <th>Имя пользователя</th>
+            <th>Тип пользователя</th>
+            <th>Тип запроса</th>
+            <th>Детали запроса</th>
+            <th>Действие</th>
+        </tr>
+        {% for request in requests %}
+        <tr>
+            <td>{{ request[1] }}</td>
+            <td>{{ request[2] }}</td>
+            <td>{{ request[3] }}</td>
+            <td>{{ request[4] }}</td>
+            <td>
+                <form class="admin_requests_form" action="{{ url_for('admin_requests') }}" method="post">
+                    <input type="hidden" name="request_id" value="{{ request[0] }}">
+                    <button type="submit" name="action" value="approve">Одобрить</button>
+                    <button type="submit" name="action" value="reject">Отклонить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}">Назад</a>
+</body>
+</html>

@@ -1,10 +1,14 @@
+USE mysql;
+DROP DATABASE IF EXISTS military;
+
 CREATE DATABASE IF NOT EXISTS military;
 
 USE military;
 
 CREATE TABLE `Rank` (
     ID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(255)
+    Name VARCHAR(255),
+    RankType Enum('soldier', 'officer') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Officer (

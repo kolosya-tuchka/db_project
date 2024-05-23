@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <meta charset="UTF-8">
+    <title>Редактировать армию</title>
+</head>
+<body>
+    <h1>Редактировать армию</h1>
+    <form method="POST">
+        <label>Название:</label>
+        <input type="text" name="name" value="{{ army[0] }}" required><br>
+        <label>Командир:</label>
+        <select name="commander_id">
+            {% for officer in officers %}
+            <option value="{{ officer[0] }}" {% if officer[0] == army[1] %}selected{% endif %}>{{ officer[1] }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Сохранить</button>
+    </form>
+    <a href="{{ url_for('view_armies') }}">Назад</a>
+</body>
+</html>
